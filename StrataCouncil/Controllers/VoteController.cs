@@ -60,12 +60,9 @@ namespace StrataCouncil.Controllers
                 UpdateModel<VotingModelView>(model);
                 int measureId;
 
-                if(Session["measureId"] !=  null)
-                {
+                if(Session["measureId"] !=  null){
                     measureId = (int)Session["measureId"];
-                }
-                else
-                {
+                } else {
                     return RedirectToAction("Index");
                 }
                 voteService.Save(model.Vote, measureId);

@@ -11,7 +11,7 @@ namespace StrataCouncil.Models
         [Key]
         public int VoteId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Voter name is required.")]
         public string VoterName { get; set; }
 
         [Display(Name = "Check For yes")]
