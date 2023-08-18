@@ -1,0 +1,53 @@
+﻿@model StrataCouncil.ViewModel.MeasureModelContext
+
+@{
+    ViewBag.Title = "ShowMeasure";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section>
+    <div class="alert alert-dismissible alert-warning">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h4 class="alert-heading">Warning!</h4>
+        <p class="mb-0">Authentication should added to this page</p>
+    </div>
+</section>
+<p>
+    @Html.ActionLink("Create New", "Index")
+</p>
+<table class="table">
+    <tr>
+        <th>Subject </th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>MinVotesRequired </th>
+        <th>MinPercentageRequired
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Measures) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinVotesRequired)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinPercentageRequired)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

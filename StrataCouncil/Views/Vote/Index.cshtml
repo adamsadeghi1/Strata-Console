@@ -1,0 +1,43 @@
+﻿@model StrataCouncil.ViewModel.MeasureModelContext
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>Subject </th>
+        <th> Description</th>
+        <th> Status</th>
+        <th>MinVotesRequired </th>
+        <th>MinPercentageRequired</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Measures) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinVotesRequired)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinPercentageRequired)
+        </td>
+        <td>
+          
+            @Html.ActionLink("Vote", "Voting", new { id=item.Id }) 
+           
+        </td>
+    </tr>
+}
+
+</table>

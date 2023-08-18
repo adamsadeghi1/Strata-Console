@@ -1,0 +1,45 @@
+﻿@model StrataCouncil.ViewModel.VotedListModelContext
+
+@{
+    ViewBag.Title = "VotedList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section>
+    <div class="alert alert-dismissible alert-warning">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h4 class="alert-heading">Warning!</h4>
+        <p class="mb-0">Authentication should added to this page</p>
+    </div>
+</section>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Voter Name</th>
+        <th>Voted Status</th>
+        <th>Pool Name </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Votes) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VoterName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VotedYes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Measure.Subject)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.VoteId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.VoteId })
+        </td>
+    </tr>
+}
+
+</table>
