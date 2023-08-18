@@ -19,7 +19,7 @@ namespace StrataCouncil.Controllers
         {
             MeasureService = new MeasureService();
         }
-        // GET: Measure
+       
         public ActionResult Index()
         {
             return View();
@@ -33,13 +33,13 @@ namespace StrataCouncil.Controllers
         }
 
 
-        // GET: Measure/Create
+       
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Measure/Create
+       
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
