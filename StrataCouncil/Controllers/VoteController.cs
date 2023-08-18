@@ -3,18 +3,28 @@ using StrataCouncil.Models;
 using StrataCouncil.Service;
 using StrataCouncil.ViewModel;
 using System.Web.Mvc;
+using System.Web.Routing;
+using Unity;
 
 namespace StrataCouncil.Controllers
 {
     public class VoteController : Controller
     {
-        private MeasureService measureService;
-        private VoteService voteService;
+        private IMeasureService measureService;
+        private IVoteService voteService;
+
+
+
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            var container = HttpContext.Application["UnityContainer"] as IUnityContainer;
+            voteService = container.Resolve<IVoteService>();
+            measureService = container.Resolve<IMeasureService>();
+        }
 
         public VoteController()
         {
-            measureService = new MeasureService();
-            voteService = new VoteService();
         }
 
         public ActionResult Index()
@@ -75,6 +85,16 @@ namespace StrataCouncil.Controllers
             }
         }
 
-       
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            var vote = voteService.Delete((int)id);
+            return RedirectToAction("VotedList");
+        }
+
+
     }
 }

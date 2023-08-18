@@ -6,18 +6,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.ApplicationServices;
 using System.Web.Mvc;
+using System.Web.Routing;
+using Unity;
 
 namespace StrataCouncil.Controllers
 {
     public class MeasureController : Controller
     {
 
-        private MeasureService MeasureService;
+        private IMeasureService MeasureService;
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            var container = HttpContext.Application["UnityContainer"] as IUnityContainer;
+            MeasureService = container.Resolve<IMeasureService>();
+        }
 
         public MeasureController()
         {
-            MeasureService = new MeasureService();
+            
         }
        
         public ActionResult Index()

@@ -1,5 +1,6 @@
 ﻿using StrataCouncil.Dbcontext;
 using StrataCouncil.Models;
+using StrataCouncil.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,36 +8,32 @@ using System.Web;
 
 namespace StrataCouncil.Service
 {
-    public class VoteService
+    public class VoteService : IVoteService
     {
-        private PoolContext cxdb;
-        public VoteService()
+        private VoteRepository voteRepository;
+        public VoteService(VoteRepository voteRepository)
         {
-            cxdb = new PoolContext();
+            this.voteRepository = voteRepository;
         }
 
         public int Save(Vote vote, int measureId)
         {
-            var measure = FindMeasureById(measureId);
-            vote.Measure = measure;
-            cxdb.Votes.Add(vote);
-            return cxdb.SaveChanges();
+           return voteRepository.Save(vote, measureId);
         }
-
-        private  Measure FindMeasureById(int id)
-        {
-            return cxdb.Measures.Where(x => x.Id == id).Single(); ;
-        }
-
 
         public Vote FindById(int id)
         {
-            return cxdb.Votes.Where(x => x.VoteId == id).Single(); ;
+            return voteRepository.FindById(id);
         }
 
         public List<Vote> FindAll()
         {
-            return cxdb.Votes.ToList();
+            return voteRepository.FindAll();
         }
+
+        public Vote Delete(int id) { 
+            return voteRepository.Delete(id);
+        }
+
     }
 }

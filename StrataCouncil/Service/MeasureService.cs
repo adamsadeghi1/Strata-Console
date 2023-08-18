@@ -1,34 +1,36 @@
 ﻿using StrataCouncil.Dbcontext;
 using StrataCouncil.Models;
+using StrataCouncil.Repository;
 using System.Collections.Generic;
 using System.Linq;
 
 
 namespace StrataCouncil.Service
 {
-    public class MeasureService
+    public class MeasureService : IMeasureService   
     {
-        private PoolContext cxdb; 
-        public MeasureService() {
-            this.cxdb = new PoolContext();
+        private MeasureRepository measureRepository;
+        public MeasureService(MeasureRepository measureRepository) {
+            this.measureRepository = measureRepository;    
         }
-
 
         public int Save(Measure measure)
         {
-           cxdb.Measures.Add(measure);
-           return cxdb.SaveChanges();
+            
+            return measureRepository.Save(measure);
         }
 
         public Measure FindById(int id)
         {
-            return cxdb.Measures.Where(x => x.Id == id).Single(); ;
+            return measureRepository.FindById(id);
         }
 
         public List<Measure> FindAll()
         {
-            return cxdb.Measures.ToList();
+            return measureRepository.FindAll();
         }
+
+
 
     }
 }
